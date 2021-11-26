@@ -1,9 +1,9 @@
 :root {
-  --color-baltic-sea: #322E38;
-  --color-tulip-tree: #ECB935;
-  --color-mine-shaft: #2B2B2B;
+  --color-baltic-sea: #322e38;
+  --color-tulip-tree: #ecb935;
+  --color-mine-shaft: #2b2b2b;
 
-  // background color
+  /* background color */
   --color-background: 41, 37, 48;
   --color-background-default: rgba(var(--color-background), 1);
   --color-background-100: rgba(var(--color-background), 0.72);
@@ -15,7 +15,7 @@
   --color-background-700: rgba(var(--color-background), 0.05);
   --color-background-800: rgba(var(--color-background), 0.03);
 
-  // foreground color
+  /* foreground color */
   --color-foreground: 255, 255, 255;
   --color-foreground-default: rgba(var(--color-foreground), 1);
   --color-foreground-100: rgba(var(--color-foreground), 0.72);
@@ -27,7 +27,7 @@
   --color-foreground-700: rgba(var(--color-foreground), 0.05);
   --color-foreground-800: rgba(var(--color-foreground), 0.03);
 
-  // primary color
+  /* primary color */
   --color-primary: 37, 157, 168;
   --color-primary-default: rgba(var(--color-primary), 1);
   --color-primary-100: rgba(var(--color-primary), 0.72);
@@ -39,7 +39,7 @@
   --color-primary-700: rgba(var(--color-primary), 0.05);
   --color-primary-800: rgba(var(--color-primary), 0.03);
 
-  // success color
+  /* success color */
   --color-success: 173, 220, 123;
   --color-success-default: rgba(var(--color-success), 1);
   --color-success-100: rgba(var(--color-success), 0.72);
@@ -51,7 +51,7 @@
   --color-success-700: rgba(var(--color-success), 0.05);
   --color-success-800: rgba(var(--color-success), 0.03);
 
-  // warning
+  /* warning */
   --color-warning: 252, 201, 88;
   --color-warning-default: rgba(var(--color-warning), 1);
   --color-warning-100: rgba(var(--color-warning), 0.72);
@@ -63,7 +63,7 @@
   --color-warning-700: rgba(var(--color-warning), 0.05);
   --color-warning-800: rgba(var(--color-warning), 0.03);
 
-  // danger
+  /* danger */
   --color-danger: 255, 134, 99;
   --color-danger-default: rgba(var(--color-danger), 1);
   --color-danger-100: rgba(var(--color-danger), 0.72);

@@ -1,6 +1,8 @@
 name: Lint
 on:
-  pull_request: {}
+  push:
+    branches:
+      - main
 jobs:
   build:
     name: Run linters
@@ -12,11 +14,21 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Git Setup
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 65770768+vitech-sdlc@users.noreply.github.com
+          git remote add gh-token "https://${{ secrets.GITHUB_TOKEN}}@github.com/vitech-team-sdlc/sdlc-ui.git"
+
       - uses: actions/setup-node@v2
         with:
           node-version: '14'
 
       - run: npm ci
+
+      - run: npm version patch
+
+      - run: git push --follow-tags origin main
 
       - name: Lint Code Base
         uses: github/super-linter@v4
