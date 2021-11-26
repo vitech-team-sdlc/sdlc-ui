@@ -1,0 +1,12 @@
+{
+  "extends": [
+    "stylelint-config-standard",
+    "stylelint-config-recommended-scss"
+  ],
+  "rules": {
+    "scss/at-rule-no-unknown": null,
+    "color-function-notation": null,
+    "font-family-name-quotes": null,
+    "font-family-no-missing-generic-family-keyword": null
+  }
+}
