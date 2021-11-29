@@ -1,9 +1,10 @@
 <template>
   <header class="max-w-1110 mx-auto h-110 flex items-center justify-between text-foreground-default">
-    <i class="icon-logo text-24" />
-    <div class="flex items-center">
-      <i class="icon-github text-28 text-foreground-default" />
-      <span class="text-14">Justin Fagundez</span>
+    <span class="icon-logo text-24 cursor-pointer" />
+    <div class="flex items-center cursor-pointer">
+      <span class="icon-github text-28 text-foreground-default" />
+      <span class="text-14 mx-8 font-bold">Justin Fagundez</span>
+      <span class="icon-arrow-down text-9 text-foreground-default" />
     </div>
   </header>
 </template>
@@ -15,6 +16,3 @@ export default defineComponent({
   name: 'Header'
 })
 </script>
-
-<style scoped>
-</style>

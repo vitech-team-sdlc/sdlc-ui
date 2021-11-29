@@ -1,16 +1,16 @@
 <template>
-  <div>
-    <header>example header</header>
-
+  <Header />
+  <main class="bg-santas-grey">
     <router-view />
-
-    <footer>example footer</footer>
-  </div>
+  </main>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import Header from '@/components/Header.vue'
+
 export default defineComponent({
-  name: 'DefaultLayout'
+  name: 'DefaultLayout',
+  components: { Header }
 })
 </script>

@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  h1 {
+    @apply text-48 font-roboto-mono leading-57;
+  }
+
+  h2 {
+    @apply text-36 font-roboto-mono leading-43;
+  }
+
+  h3 {
+    @apply text-21 font-roboto-mono leading-30;
+  }
+
+  h4 {
+    @apply text-18 font-roboto-mono leading-28;
+  }
+
+  p {
+    @apply font-roboto leading-28;
+  }
+}

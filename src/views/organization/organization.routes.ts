@@ -1,13 +1,13 @@
 import { RouteRecordRaw } from 'vue-router'
 
-export const authRouteNames = {
+export const organizationRouteNames = {
   organization: 'organization'
 }
 
 export const organizationRoutes: Array<RouteRecordRaw> = [
   {
     path: 'organization',
-    name: authRouteNames.organization,
+    name: organizationRouteNames.organization,
     component: () => import('./Organization.vue')
   }
 ]

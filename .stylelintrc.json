@@ -4,7 +4,14 @@
     "stylelint-config-recommended-scss"
   ],
   "rules": {
-    "scss/at-rule-no-unknown": null,
+    "scss/at-rule-no-unknown": [ true, {
+      "ignoreAtRules": [
+        "extends",
+        "tailwind",
+        "layer",
+        "apply"
+      ]
+    }],
     "color-function-notation": null,
     "font-family-name-quotes": null,
     "font-family-no-missing-generic-family-keyword": null

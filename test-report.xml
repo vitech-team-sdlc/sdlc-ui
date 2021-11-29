@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testExecutions version="1">
-  <file path="/home/yuriimartynenko/Desktop/projects/sdlc-ui/tests/unit/example.spec.ts">
-    <testCase name="Login page renders props.msg when passed" duration="19"/>
-  </file>
-</testExecutions>

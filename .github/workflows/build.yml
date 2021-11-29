@@ -26,13 +26,13 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
           LINTER_RULES_PATH: /
-          CSS_FILE_NAME: .stylelintrc
+          CSS_FILE_NAME: .stylelintrc.json
           JAVASCRIPT_ES_CONFIG_FILE: .eslintrc.json
           VALIDATE_CSS: true
           VALIDATE_JAVASCRIPT_ES: true
 
       - name: Run tests
-        run: npm run test
+        run: sudo npm run test
 
       - name: SonarCloud Scan
         uses: sonarsource/sonarcloud-github-action@master
