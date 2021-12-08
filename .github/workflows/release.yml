@@ -46,13 +46,7 @@ jobs:
       - name: Run tests
         run: npm run test
 
-      - name: check folder
-        run: ls -la
-
-      - name: check folder-2
-        run: ls -la coverage
-
-      - name: check folder-2
+      - name: check lcov
         run: cat coverage/lcov.info
 
       - name: SonarCloud Scan
