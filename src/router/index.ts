@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory, RouteRecordRaw, onBeforeRouteUpdate, useRoute } from 'vue-router'
 
 import { routesNames } from './route-names'
-import { routeGuard } from './route-guard'
+// import { routeGuard } from './route-guard'
 
 import { authRoutes } from '@/views/auth/auth.routes'
 
@@ -33,7 +33,7 @@ export const router = createRouter({
   routes
 })
 
-router.beforeEach(routeGuard)
+// router.beforeEach(routeGuard)
 
 export {
   routesNames,
