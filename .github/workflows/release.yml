@@ -49,9 +49,15 @@ jobs:
       - name: check lcov
         run: cat coverage/lcov.info
 
-      - name: SonarCloud Scan
-        uses: sonarsource/sonarcloud-github-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+#      - name: SonarCloud Scan
+#        uses: sonarsource/sonarcloud-github-action@master
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
+
+      - uses: addnab/docker-run-action@v3
+        with:
+          image: sonarsource/sonar-scanner-cli
+          run: |
+            sonar-scanner -Dsonar.login=${{ secrets.SONAR_TOKEN }}
