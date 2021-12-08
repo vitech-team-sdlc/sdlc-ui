@@ -47,10 +47,10 @@ jobs:
         run: npm run test
 
       - name: check folder
-        run: ls -la /github/workspace
+        run: ls -la
 
       - name: check folder-2
-        run: ls -la /github/workspace/coverage
+        run: ls -la /coverage
 
       - name: SonarCloud Scan
         uses: sonarsource/sonarcloud-github-action@master
