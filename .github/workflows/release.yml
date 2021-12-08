@@ -62,4 +62,6 @@ jobs:
           options: -v ${{ github.workspace }}:/sources
           run: |
             cd /sources
+            ls .
+            cat coverage/lcov.info
             sonar-scanner -Dsonar.login=${{ secrets.SONAR_TOKEN }}
