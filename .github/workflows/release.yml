@@ -24,7 +24,7 @@ jobs:
         with:
           node-version: '14'
 
-      - run: npm install
+      - run: npm ci
 
 #      - run: npm version patch
 #
@@ -48,7 +48,7 @@ jobs:
 
       - name: fix-lcov
         run: |
-          sed -i 's|/home/runner/work/${{ github.repository }}/${{ github.repository }}|/github/workspace|g' coverage/lcov.info
+          sed -i 's|/home/runner/work/sdlc-ui/sdlc-ui|/github/workspace|g' coverage/lcov.info
           cat coverage/lcov.info
 
       - name: SonarCloud Scan
