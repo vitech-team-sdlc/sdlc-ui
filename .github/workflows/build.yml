@@ -32,7 +32,12 @@ jobs:
           VALIDATE_JAVASCRIPT_ES: true
 
       - name: Run tests
-        run: sudo npm run test
+        run: npm run test
+
+      - name: fix-lcov
+        run: |
+          sed -i 's|/home/runner/work/sdlc-ui/sdlc-ui|/github/workspace|g' coverage/lcov.info
+          cat coverage/lcov.info
 
       - name: SonarCloud Scan
         uses: sonarsource/sonarcloud-github-action@master
