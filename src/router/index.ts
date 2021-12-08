@@ -1,13 +1,14 @@
 import { createRouter, createWebHistory, RouteRecordRaw, onBeforeRouteUpdate, useRoute } from 'vue-router'
 
 import { routesNames } from './route-names'
-import { routeGuard } from './route-guard'
+// import { routeGuard } from './route-guard'
 
 import { authRoutes } from '@/views/auth/auth.routes'
 
 import DefaultLayout from '@/layouts/DefaultLayout.vue'
 import BlankLayout from '@/layouts/BlankLayout.vue'
 import { organizationRoutes } from '@/views/organization/organization.routes'
+import { dashboardRoutes } from '@/views/dashboard/dashboard.routes'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -23,7 +24,8 @@ const routes: Array<RouteRecordRaw> = [
     children: [
       ...organizationRoutes
     ]
-  }
+  },
+  ...dashboardRoutes
 ]
 
 export const router = createRouter({
@@ -31,7 +33,7 @@ export const router = createRouter({
   routes
 })
 
-router.beforeEach(routeGuard)
+// router.beforeEach(routeGuard)
 
 export {
   routesNames,
