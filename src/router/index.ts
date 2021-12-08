@@ -6,14 +6,23 @@ import { routeGuard } from './route-guard'
 import { authRoutes } from '@/views/auth/auth.routes'
 
 import DefaultLayout from '@/layouts/DefaultLayout.vue'
+import BlankLayout from '@/layouts/BlankLayout.vue'
+import { organizationRoutes } from '@/views/organization/organization.routes'
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: routesNames.auth,
     redirect: routesNames.login,
-    component: DefaultLayout,
+    component: BlankLayout,
     children: authRoutes
+  },
+  {
+    path: '/',
+    component: DefaultLayout,
+    children: [
+      ...organizationRoutes
+    ]
   }
 ]
 
