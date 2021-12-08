@@ -44,7 +44,13 @@ jobs:
           VALIDATE_JAVASCRIPT_ES: true
 
       - name: Run tests
-        run: sudo npm run test
+        run: npm run test
+
+      - name: check folder
+        run: ls -la /github/workspace
+
+      - name: check folder-2
+        run: ls -la /github/workspace/coverage
 
       - name: SonarCloud Scan
         uses: sonarsource/sonarcloud-github-action@master
