@@ -46,15 +46,9 @@ jobs:
       - name: Run tests
         run: npm run test
 
-      - name: check lcov
+      - name: fix-lcov
         run: |
-          
-          source_dir="/home/runner/work/${{ github.repository }}/${{ github.repository }}"
-          correct_dir="/github/workspace"
-        
           sed -i 's|/home/runner/work/${{ github.repository }}/${{ github.repository }}|/github/workspace|g' coverage/lcov.info
-
-#          sed -i 's/\/home\/runner\/work\/${{ github.repository }}\/${{ github.repository }}\//\/github\/workspace\//g' coverage/lcov.info
           cat coverage/lcov.info
 
       - name: SonarCloud Scan
