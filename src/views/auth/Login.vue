@@ -29,16 +29,15 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-// import { router, routesNames } from '@/router'
 import ButtonModule from '@/components/ButtonModule.vue'
+
 export default defineComponent({
   name: 'Login',
   components: { ButtonModule },
 
   setup () {
     function goToOrganization () {
-      window.location.href = 'https://github.com/login/oauth/authorize?client_id=ce907efc6366f92b54d8'
-      // router.push({ name: routesNames.organization })
+      window.location.href = 'https://github.com/login/oauth/authorize?client_id=Iv1.94657f4b86f3738d'
     }
     return { goToOrganization }
   }

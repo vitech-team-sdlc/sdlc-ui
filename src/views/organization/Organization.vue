@@ -23,8 +23,8 @@
 <script lang="ts">
 import { defineComponent, onMounted, ref } from 'vue'
 import ButtonModule from '@/components/ButtonModule.vue'
+import { authStore } from '@/views/auth/auth.store'
 import { useRoute } from 'vue-router'
-import { generalService } from '@/services'
 
 export default defineComponent({
   name: 'Organization',
@@ -50,34 +50,13 @@ export default defineComponent({
       label: '1 salo instalation'
     }]
     const activeOrganization = ref(items[0])
-    onMounted(() => {
-      const code = JSON.stringify(route.query.code)
-      getAccessTokenFromCode(code)
+
+    onMounted(async () => {
+      if (!authStore.accessToken) {
+        await authStore.getAccessTokenFromCode(JSON.stringify(route.query.code))
+      }
+      await authStore.getUser()
     })
-    async function getAccessTokenFromCode (code: string) {
-      await generalService.getAccessToken(code)
-      //   url: 'https://github.com/login/oauth/access_token',
-      // const opts = { headers: { accept: 'application/json' } }
-      // const { data } = await axios({
-      //   url: 'https://github.com/login/oauth/access_token',
-      //   method: 'post',
-      //   headers: {
-      //     Accept: 'application/json',
-      //     'Access-Control-Allow-Origin': '*',
-      //     'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS',
-      //     'Access-Control-Allow-Headers': 'Content-Type'
-      //   },
-      //   params: {
-      //     client_id: 'ce907efc6366f92b54d8',
-      //     client_secret: '386aa91051d3c668c950170c209581ce0367af1d',
-      //     code: JSON.parse(code)
-      //   }
-      // })
-      /**
-       * GitHub returns data as a string we must parse.
-       */
-      // console.log(data, 'data')
-    }
     return { activeOrganization, items }
   }
 })

@@ -5,12 +5,8 @@
       <ButtonModule prefix="icon-add text-14 mr-16" text="Add" size="xs" />
     </div>
     <div class="w-full bg-foreground-900 border border-foreground-500 rounded-16">
-      <select name="organization" class="my-20">
-        <option value="arcadia">Arcadia</option>
-        <option value="violetx">VioletX</option>
-        <option value="philips">Philips</option>
-        <option value="immediate">Immediate</option>
-      </select>
+      <SelectModule :options="['hello', 'world']" class="w-243 my-20 ml-32" />
+
       <table class="w-full">
         <tr>
           <th v-for="header in headers" :key="header">{{ header }}</th>
@@ -27,6 +23,12 @@
           <td>{{ item.topologyStreams }}</td>
         </tr>
       </table>
+      <div class="flex justify-end">
+        <div>
+          <span>items per page</span>
+        </div>
+        <div>1-5 of 24</div>
+      </div>
     </div>
   </div>
 </template>
@@ -34,10 +36,11 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import ButtonModule from '@/components/ButtonModule.vue'
+import SelectModule from '@/components/SelectModule.vue'
 
 export default defineComponent({
   name: 'Organization',
-  components: { ButtonModule },
+  components: { ButtonModule, SelectModule },
 
   setup () {
     const headers = ['', 'Name', 'Environments', 'Applications', 'Topology streams']
@@ -89,16 +92,4 @@ tr {
     @apply h-57 border-t border-foreground-500;
   }
 }
-//tr th:nth-child(n+3), td:nth-child(n+3) {
-//  text-align: right;
-//}
-//tr th:nth-child(2), td:nth-child(2) {
-//  text-align: left;
-//}
-//tr th {
-//  @apply text-foreground-200 text-14 font-roboto-mono;
-//}
-//tr th, td {
-//  @apply h-57 border-t border-foreground-500;
-//}
 </style>
