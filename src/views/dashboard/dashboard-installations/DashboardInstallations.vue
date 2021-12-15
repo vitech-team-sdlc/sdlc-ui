@@ -6,23 +6,6 @@
     </div>
     <div class="w-full bg-foreground-900 border border-foreground-500 rounded-16">
       <SelectModule :options="['hello', 'world']" class="w-243 my-20 ml-32" />
-
-      <table class="w-full">
-        <tr>
-          <th v-for="header in headers" :key="header">{{ header }}</th>
-        </tr>
-        <tr v-for="item in items" :key="item.name">
-          <td>
-            <div class="bg-tulip-tree w-32 h-32 flex justify-center items-center rounded-100">
-              <span class="icon-settings text-23 text-black" />
-            </div>
-          </td>
-          <td>{{ item.name }}</td>
-          <td>{{ item.environments }}</td>
-          <td>{{ item.applications }}</td>
-          <td>{{ item.topologyStreams }}</td>
-        </tr>
-      </table>
       <div
         class="flex justify-end py-20 text-foreground-200
         text-14 font-roboto font-medium border-t border-foreground-500"

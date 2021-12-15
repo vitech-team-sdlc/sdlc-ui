@@ -7,9 +7,9 @@
     <div class="w-full bg-foreground-900 border border-foreground-500 rounded-16">
       <SelectModule :options="['hello', 'world']" class="w-243 my-20 ml-32" />
 
-      <table class="w-full">
+      <table class="w-full" aria-describedby="installations">
         <tr>
-          <th v-for="header in headers" :key="header">{{ header }}</th>
+          <th v-for="header in headers" :id="header" :key="header">{{ header }}</th>
         </tr>
         <tr v-for="item in items" :key="item.name">
           <td>
@@ -29,7 +29,7 @@
       >
         <div class="flex">
           <span>Items per page</span>
-          <SelectOutlineModule :options="['5', '4', '3']" class="w-64" />
+          <SelectModule :options="['5', '4', '3']" is-outline class="w-64" />
         </div>
         <div class="flex ml-70 items-center">
           <span>1-5 of 24</span>
@@ -45,11 +45,10 @@
 import { defineComponent } from 'vue'
 import ButtonModule from '@/components/ButtonModule.vue'
 import SelectModule from '@/components/SelectModule.vue'
-import SelectOutlineModule from '@/components/SelectOutlineModule.vue'
 
 export default defineComponent({
   name: 'Organization',
-  components: { ButtonModule, SelectModule, SelectOutlineModule },
+  components: { ButtonModule, SelectModule },
 
   setup () {
     const headers = ['', 'Name', 'Environments', 'Applications', 'Topology streams']

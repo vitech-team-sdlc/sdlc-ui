@@ -1,19 +1,19 @@
 <template>
-  <div class="relative text-left outline-0 h-47 leading-47" @blur="open = false">
+  <div class="relative text-left outline-0" :class="isOutline ? 'leading-24' : 'leading-47 h-47'" @blur="open = false">
     <div
-      :class="[ open ? 'border border-tulip-tree rounded-t-8' : 'border border-foreground-500 rounded-8 ' ]"
-      class="bg-transparent pl-16 cursor-pointer "
+      :class="[ isOutline ? isOutlineStyle : isNotOutline ]"
+      class="bg-transparent pl-16 cursor-pointer flex items-center"
       @click="open = !open"
     >
       {{ selected }}
-      <span class="text-right icon-arrow right-15 absolute text-9 transition ease-in-out delay-100"
-            :class="{ 'transform -rotate-180 ': open }" style="top: 45%"
+      <span
+        class="text-right right-15 absolute text-9 transition ease-in-out delay-100"
+        :class="[{ 'transform -rotate-180 ': open }, isOutline ? 'icon-arrow-outline' : 'icon-arrow']"
       />
     </div>
     <div
-      class="absolute left-0 right-0 z-index-10
-      border-r border-l border-b border-tulip-tree rounded-b-8 bg-background-default"
-      :class="{ 'hidden': !open }"
+      class="absolute left-0 right-0 z-index-10 rounded-b-8 bg-background-default"
+      :class="[{ 'hidden': !open }, { 'border-r border-l border-b border-tulip-tree': !isOutline }]"
     >
       <div
         v-for="(option, i) of options"
@@ -28,7 +28,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { computed, defineComponent, ref } from 'vue'
 
 export default defineComponent({
   name: 'SelectModule',
@@ -42,14 +42,22 @@ export default defineComponent({
       required: false,
       default: null
     },
+    isOutline: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
     size: String,
     type: String
   },
   emits: ['input'],
 
   setup (props, { emit }) {
-    const selected = ref(props.default ? props.default : props.options.length > 0 ? props.options[0] : null)
+    const selected = ref(getSelectedItem())
     const open = ref(false)
+
+    const isOutlineStyle = computed(() => open.value ? 'rounded-t-8 h-25' : 'rounded-8 h-25')
+    const isNotOutline = computed(() => open.value ? 'border border-tulip-tree rounded-t-8' : 'border border-foreground-500 rounded-8')
 
     function selectOption (option: string) {
       selected.value = option
@@ -57,7 +65,14 @@ export default defineComponent({
       emit('input', option)
     }
 
-    return { selected, open, selectOption }
+    function getSelectedItem () {
+      if (props.default) {
+        return props.default
+      }
+      return props.options.length > 0 ? props.options[0] : null
+    }
+
+    return { selected, open, selectOption, isOutlineStyle, isNotOutline }
   }
 })
 </script>

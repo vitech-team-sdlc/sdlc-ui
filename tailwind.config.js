@@ -97,6 +97,7 @@ module.exports = {
       16: '16px',
       20: '20px',
       24: '24px',
+      25: '25px',
       26: '26px',
       28: '28px',
       32: '32px',
@@ -123,7 +124,6 @@ module.exports = {
       1110: '1110px'
     },
     backgroundColor: (theme) => theme('colors'),
-    backgroundOpacity: (theme) => theme('opacity'),
     backgroundPosition: {
       bottom: 'bottom',
       center: 'center',
@@ -233,7 +233,9 @@ module.exports = {
       auto: 'auto',
       ...theme('spacing'),
       '1/2': '50%',
+      // eslint-disable-next-line sonarjs/no-duplicate-string
       '1/3': '33.333333%',
+      // eslint-disable-next-line sonarjs/no-duplicate-string
       '2/3': '66.666667%',
       '1/4': '25%',
       '2/4': '50%',
@@ -242,10 +244,12 @@ module.exports = {
       '2/5': '40%',
       '3/5': '60%',
       '4/5': '80%',
+      // eslint-disable-next-line sonarjs/no-duplicate-string
       '1/6': '16.666667%',
       '2/6': '33.333333%',
       '3/6': '50%',
       '4/6': '66.666667%',
+      // eslint-disable-next-line sonarjs/no-duplicate-string
       '5/6': '83.333333%',
       full: '100%',
       screen: '100vh'
@@ -311,7 +315,9 @@ module.exports = {
       ...theme('spacing'),
       none: 'none',
       full: '100%',
+      // eslint-disable-next-line sonarjs/no-duplicate-string
       min: 'min-content',
+      // eslint-disable-next-line sonarjs/no-duplicate-string
       max: 'max-content',
       ...breakpoints(theme('screens'))
     }),
@@ -415,6 +421,7 @@ module.exports = {
     }
   },
   variants: {
+    // eslint-disable-next-line sonarjs/no-duplicate-string
     accessibility: ['responsive', 'focus-within', 'focus'],
     alignContent: ['responsive'],
     alignItems: ['responsive'],
@@ -434,6 +441,7 @@ module.exports = {
     backgroundAttachment: ['responsive'],
     backgroundBlendMode: ['responsive'],
     backgroundClip: ['responsive'],
+    // eslint-disable-next-line sonarjs/no-duplicate-string
     backgroundColor: ['responsive', 'dark', 'group-hover', 'focus-within', 'hover', 'focus'],
     backgroundImage: ['responsive'],
     backgroundOpacity: ['responsive', 'dark', 'group-hover', 'focus-within', 'hover', 'focus'],
