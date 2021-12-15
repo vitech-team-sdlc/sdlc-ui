@@ -1,18 +1,17 @@
 <template>
-  <div class="relative text-left outline-0 h-47 leading-47" @blur="open = false">
+  <div class="relative text-left outline-0 leading-24" @blur="open = false">
     <div
-      :class="[ open ? 'border border-tulip-tree rounded-t-8' : 'border border-foreground-500 rounded-8 ' ]"
+      :class="[ open ? 'rounded-t-8' : 'rounded-8 ' ]"
       class="bg-transparent pl-16 cursor-pointer "
       @click="open = !open"
     >
       {{ selected }}
-      <span class="text-right icon-arrow right-15 absolute text-9 transition ease-in-out delay-100"
-            :class="{ 'transform -rotate-180 ': open }" style="top: 45%"
+      <span class="text-right icon-arrow-outline right-15 absolute text-9 transition ease-in-out delay-100"
+            :class="{ 'transform -rotate-180 ': open }" style="top: 34%"
       />
     </div>
     <div
-      class="absolute left-0 right-0 z-index-10
-      border-r border-l border-b border-tulip-tree rounded-b-8 bg-background-default"
+      class="absolute left-0 right-0 z-index-10 rounded-b-8 bg-background-default"
       :class="{ 'hidden': !open }"
     >
       <div
@@ -31,7 +30,7 @@
 import { defineComponent, ref } from 'vue'
 
 export default defineComponent({
-  name: 'SelectModule',
+  name: 'SelectOutlineModule',
   props: {
     options: {
       type: Array,

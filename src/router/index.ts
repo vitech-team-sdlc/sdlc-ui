@@ -22,10 +22,10 @@ const routes: Array<RouteRecordRaw> = [
     path: '/',
     component: DefaultLayout,
     children: [
-      ...organizationRoutes
+      ...organizationRoutes,
+      ...dashboardRoutes
     ]
-  },
-  ...dashboardRoutes
+  }
 ]
 
 export const router = createRouter({

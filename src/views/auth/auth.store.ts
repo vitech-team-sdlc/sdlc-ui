@@ -16,9 +16,6 @@ class AuthStore extends VuexModule {
     this.accessToken = payload.access_token
     this.refreshToken = payload.refresh_token
 
-    console.log(payload, 'payload')
-
-    // const cookieDate = new Date()
     document.cookie =
       `${authService.accessTokenCookiesName}=${payload.access_token};expires=${new Date(payload.expiry)}`
     localStorage.setItem(authService.refreshTokenLocalStorageName, this.accessToken)
@@ -38,6 +35,11 @@ class AuthStore extends VuexModule {
   @Action
   async getAccessTokenFromCode (code: string) {
     const response = await authService.getAccessToken(code)
+    this.SET_LOGIN_INFO(response)
+  }
+
+  async getRefreshTokenFromCode (code: string) {
+    const response = await authService.getRefreshToken(code)
     this.SET_LOGIN_INFO(response)
   }
 

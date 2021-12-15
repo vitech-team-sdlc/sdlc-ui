@@ -23,11 +23,19 @@
           <td>{{ item.topologyStreams }}</td>
         </tr>
       </table>
-      <div class="flex justify-end">
-        <div>
-          <span>items per page</span>
+      <div
+        class="flex justify-end py-20 text-foreground-200
+        text-14 font-roboto font-medium border-t border-foreground-500"
+      >
+        <div class="flex">
+          <span>Items per page</span>
+          <SelectOutlineModule :options="['5', '4', '3']" class="w-64" />
         </div>
-        <div>1-5 of 24</div>
+        <div class="flex ml-70">
+          <span>1-5 of 24</span>
+          <span class="icon-arrow-outline block transform rotate-90 text-10 mr-32 ml-24 cursor-pointer" />
+          <span class="icon-arrow-outline block transform -rotate-90 text-10 mr-26 cursor-pointer" />
+        </div>
       </div>
     </div>
   </div>
@@ -37,10 +45,11 @@
 import { defineComponent } from 'vue'
 import ButtonModule from '@/components/ButtonModule.vue'
 import SelectModule from '@/components/SelectModule.vue'
+import SelectOutlineModule from '@/components/SelectOutlineModule.vue'
 
 export default defineComponent({
   name: 'Organization',
-  components: { ButtonModule, SelectModule },
+  components: { ButtonModule, SelectModule, SelectOutlineModule },
 
   setup () {
     const headers = ['', 'Name', 'Environments', 'Applications', 'Topology streams']

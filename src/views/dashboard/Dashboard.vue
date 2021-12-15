@@ -1,54 +1,104 @@
 <template>
-  <div class="flex bg-yellow-300 mx-auto items-center flex-col h-screen w-760">
-    <div>
-      <h1 class="text-center mt-48 mb-24">Please choose organization for instalation</h1>
-      <p class="text-24 text-center text-foreground-100">Lorem ispum</p>
-      <div class="grid grid-cols-3 gap-20 mt-80">
-        <div v-for="item in items" :key="item.value"
-             class="flex items-center justify-center flex-col p-16 bg-baltic h-160
-             rounded-16 hover:border-2 hover:border-tulip-tree cursor-pointer transition duration-300 ease-in-out"
-             :class="item.title === activeOrganization.title ?
-               'border-2 border-tulip-tree' : 'border border-foreground-500'"
-             @click="activeOrganization = item"
-        >
-          <div class="text-20 mb-4">{{ item.title }}</div>
-          <div>{{ item.label }}</div>
+  <div class="flex mx-auto bg-yellow-300 items-center flex-col h-screen max-w-1110 mt-50">
+    <div class="flex justify-between w-full mb-26">
+      <h2>Installations</h2>
+      <ButtonModule prefix="icon-add text-14 mr-16" text="Add" size="xs" />
+    </div>
+    <div class="w-full bg-foreground-900 border border-foreground-500 rounded-16">
+      <SelectModule :options="['hello', 'world']" class="w-243 my-20 ml-32" />
+
+      <table class="w-full">
+        <tr>
+          <th v-for="header in headers" :key="header">{{ header }}</th>
+        </tr>
+        <tr v-for="item in items" :key="item.name">
+          <td>
+            <div class="bg-tulip-tree w-32 h-32 flex justify-center items-center rounded-100">
+              <span class="icon-settings text-23 text-black" />
+            </div>
+          </td>
+          <td>{{ item.name }}</td>
+          <td>{{ item.environments }}</td>
+          <td>{{ item.applications }}</td>
+          <td>{{ item.topologyStreams }}</td>
+        </tr>
+      </table>
+      <div
+        class="flex justify-end py-20 text-foreground-200
+        text-14 font-roboto font-medium border-t border-foreground-500"
+      >
+        <div class="flex">
+          <span>Items per page</span>
+          <SelectOutlineModule :options="['5', '4', '3']" class="w-64" />
+        </div>
+        <div class="flex ml-70 items-center">
+          <span>1-5 of 24</span>
+          <span class="icon-arrow-outline block transform rotate-90 text-9 mr-32 ml-24 cursor-pointer" />
+          <span class="icon-arrow-outline block transform -rotate-90 text-9 mr-26 cursor-pointer" />
         </div>
       </div>
-      <button class="w-320 h-48 mx-auto bg-tulip-tree hover:shadow-button transition duration-300 ease-in-out
-      text-18 text-mine-shaft flex justify-center items-center rounded-4 mt-64"
-      >
-        Continue
-      </button>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent } from 'vue'
+import ButtonModule from '@/components/ButtonModule.vue'
+import SelectModule from '@/components/SelectModule.vue'
+import SelectOutlineModule from '@/components/SelectOutlineModule.vue'
+
 export default defineComponent({
   name: 'Organization',
+  components: { ButtonModule, SelectModule, SelectOutlineModule },
 
   setup () {
-    const items = [{
-      title: 'Arcadia',
-      label: '5 salo installations'
-    },
-    {
-      title: 'VioletX',
-      label: '1 salo instalation'
-    },
-    {
-      title: 'Philips',
-      label: ''
-    },
-    {
-      title: 'Immediate',
-      label: '1 salo instalation'
-    }]
-    const activeOrganization = ref(items[0])
-
-    return { activeOrganization, items }
+    const headers = ['', 'Name', 'Environments', 'Applications', 'Topology streams']
+    const items = [
+      {
+        name: 'Instalation Name 1',
+        environments: '4',
+        applications: '5',
+        topologyStreams: '6'
+      }
+    ]
+    return { headers, items }
   }
 })
 </script>
+
+<style lang="scss" scoped>
+tr {
+  th {
+    &:nth-child(n+3) {
+      @apply text-right;
+    }
+    &:nth-child(2) {
+      @apply text-left;
+    }
+    &:nth-child(1) {
+      @apply pl-32;
+    }
+    &:last-child {
+      @apply pr-32;
+    }
+
+    @apply text-foreground-200 text-14 font-roboto-mono h-57 border-t border-foreground-500;
+  }
+  td {
+    &:nth-child(n+3) {
+      @apply text-right text-14;
+    }
+    &:nth-child(2) {
+      @apply text-left text-14;
+    }
+    &:nth-child(1) {
+      @apply pl-32;
+    }
+    &:last-child {
+      @apply pr-32;
+    }
+
+    @apply h-57 border-t border-foreground-500;
+  }
+}
+</style>

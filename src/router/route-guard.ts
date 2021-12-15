@@ -1,9 +1,13 @@
 import { NavigationGuardNext, RouteLocationNormalized } from 'vue-router'
-// import { authStore } from '@/views/auth/auth.store'
-// import { routesNames } from '@/router/route-names'
-//
-// async function getProfile () {
-//   await authStore.getUserProfile()
+import { authStore } from '@/views/auth/auth.store'
+import { routesNames } from '@/router/route-names'
+
+// async function getRefreshToken (code: string) {
+//   await authStore.getRefreshTokenFromCode(code)
+// }
+
+// async function getUser () {
+//   await authStore.getUser()
 // }
 
 export const routeGuard = async (
@@ -11,31 +15,28 @@ export const routeGuard = async (
   from: RouteLocationNormalized,
   next: NavigationGuardNext
 ) => {
-  // const isAuthenticated = !!authStore.accessToken
-  // const userExists = !!authStore.refreshToken
-  // const isAuthRoute = to.name === 'login'
-  // const isOrganizationRoute = to.name === 'organization'
-  // console.log(isAuthRoute, 'isAuthRoute')
-  // if (isAuthenticated) {
-  //   if (!userExists) {
-  //     // await getProfile()
-  //   }
-  //
-  //   if (isOrganizationRoute) {
-  //
-  //   }
-  //
-  //   if (isAuthRoute) {
-  //     next({ name: routesNames.login })
-  //   } else {
-  //     next()
-  //   }
-  // } else {
-  //   if (isAuthRoute) {
-  //     next()
-  //   } else {
-  //     next({ name: routesNames.login })
-  //   }
-  // }
-  next()
+  const isAuthenticated = !!authStore.accessToken
+  // const refreshToken = !!authStore.refreshToken
+  const isAuthRoute = to.name === 'login'
+  const isOrganizationRoute = to.name === 'organization'
+
+  if (isAuthenticated) {
+    // await authStore.getUser()
+    if (isAuthRoute) {
+      next({ name: routesNames.organization })
+    } else {
+      next()
+    }
+  } else {
+    // if (refreshToken) {
+    //   await getRefreshToken(authStore.refreshToken)
+    // }
+    if (isAuthRoute) {
+      next()
+    } else if (isOrganizationRoute) {
+      next()
+    } else {
+      next({ name: routesNames.login })
+    }
+  }
 }
