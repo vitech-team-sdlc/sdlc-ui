@@ -1,19 +1,18 @@
 <template>
-  <div class="flex bg-yellow-300 mx-auto items-center flex-col h-screen w-760">
+  <div class="flex bg-yellow-300 mx-auto items-center flex-col w-760">
     <div>
-      <h1 class="text-center mt-48 mb-24">Please choose organization for instalation</h1>
+      <h1 class="text-center mt-48 mb-24">Please choose organization for installation</h1>
       <p class="text-24 text-center text-foreground-100">Lorem ispum</p>
       <div class="grid grid-cols-3 gap-20 mt-80">
-        <div v-for="item in organizations" :key="item.value"
-             class="flex items-center justify-center flex-col p-16 bg-baltic h-160
-           rounded-16 hover:border-2 hover:border-tulip-tree cursor-pointer transition duration-300 ease-in-out"
-             :class="item.Login === activeOrganization.Login ?
-               'border-2 border-tulip-tree' : 'border border-foreground-500'"
-             @click="activeOrganization = item"
+        <CardComponent
+          v-for="item in organizations"
+          :key="item.Login"
+          v-model="activeOrganization"
+          class="justify-center items-center p-16 h-160"
+          :value="item.Login"
         >
-          <div class="text-20 mb-4">{{ item.Login }}</div>
-          <div>{{ item.label }}</div>
-        </div>
+          <span class="text-20 mb-4">{{ item.Login }}</span>
+        </CardComponent>
       </div>
       <ButtonModule text="Continue" size="xl" class="mt-64" @click="goToDashboard" />
     </div>
@@ -21,25 +20,27 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted } from 'vue'
+import { computed, defineComponent, onMounted, ref, watchEffect } from 'vue'
 import ButtonModule from '@/components/ButtonModule.vue'
 import { authStore } from '@/views/auth/auth.store'
 import { useRoute, useRouter } from 'vue-router'
 import { routesNames } from '@/router'
 import { organizationStore } from '@/views/organization/organization.store'
 
+import CardComponent from '@/components/CardComponent.vue'
+
 export default defineComponent({
   name: 'Organization',
-  components: { ButtonModule },
+  components: { ButtonModule, CardComponent },
 
   setup () {
     const route = useRoute()
     const router = useRouter()
 
+    const activeOrganization = ref('')
+
     const organizations = computed(() => organizationStore.organizations)
-    const activeOrganization = computed(() => {
-      return organizations.value[0]
-    })
+    watchEffect(() => { activeOrganization.value = organizations.value?.[0]?.Login })
 
     onMounted(async () => {
       await getAccessToken()

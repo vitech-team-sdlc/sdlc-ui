@@ -9,6 +9,7 @@ import DefaultLayout from '@/layouts/DefaultLayout.vue'
 import BlankLayout from '@/layouts/BlankLayout.vue'
 import { organizationRoutes } from '@/views/organization/organization.routes'
 import { dashboardRoutes } from '@/views/dashboard/dashboard.routes'
+import { aboutRoutes } from '@/views/about/about.routes'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -23,7 +24,8 @@ const routes: Array<RouteRecordRaw> = [
     component: DefaultLayout,
     children: [
       ...organizationRoutes,
-      ...dashboardRoutes
+      ...dashboardRoutes,
+      ...aboutRoutes
     ]
   }
 ]

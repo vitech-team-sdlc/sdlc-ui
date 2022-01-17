@@ -19,7 +19,7 @@
       <ButtonModule
         prefix="icon-github text-32 mr-16"
         text="Authenticate with GitHub"
-        size="ultra"
+        size="full"
         class="mt-32"
         @click="goToOrganization"
       />
