@@ -28,9 +28,10 @@
           </div>
           <p class="font-inter text-foreground-100 text-14">More about EC2 prices at</p>
           <div style="background-color: #38363C" class="flex items-center px-6 h-36 rounded-6">
-            <a :href="`https://${item.link}`"
-               class="text-tulip-tree text-14"
-            >{{ item.link }}</a>
+            <span
+              class="text-tulip-tree text-14"
+              @click="navigateToLink(item.link)"
+            >{{ item.link }}</span>
           </div>
         </div>
       </CardComponent>
@@ -93,7 +94,11 @@ export default defineComponent({
 
     watchEffect(() => { emit('disable', isDisabledFields.value) })
 
-    return { selectedCardValue, data, awsKey, awsSecretKey, isDisabledFields }
+    function navigateToLink (link: string) {
+      window.open(`https://${link}`)
+    }
+
+    return { selectedCardValue, data, awsKey, awsSecretKey, isDisabledFields, navigateToLink }
   }
 })
 </script>
