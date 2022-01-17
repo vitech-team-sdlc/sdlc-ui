@@ -39,11 +39,11 @@ export default defineComponent({
     const listRoutes: Array<{ name: string; link: string }> = [
       {
         name: 'Dashboard',
-        link: 'dashboard'
+        link: routesNames.dashboard
       },
       {
         name: 'About',
-        link: 'dashboard'
+        link: routesNames.about
       }
     ]
 

@@ -16,6 +16,7 @@ module.exports = {
       'tulip-tree': 'var(--color-tulip-tree)',
       'mine-shaft': 'var(--color-mine-shaft)',
       black: 'var(--color-black)',
+      'baltic-black': 'var(--color-baltic-black)',
 
       background: {
         default: 'var(--color-background-default)',
@@ -91,16 +92,29 @@ module.exports = {
       1: '1px',
       3: '3px',
       4: '4px',
+      5: '5px',
+      6: '6px',
       8: '8px',
+      11: '11px',
+      12: '12px',
       14: '14px',
       15: '15px',
       16: '16px',
+      18: '18px',
+      19: '19px',
       20: '20px',
+      22: '22px',
       24: '24px',
       25: '25px',
       26: '26px',
+      27: '27px',
       28: '28px',
       32: '32px',
+      34: '34px',
+      36: '36px',
+      38: '38px',
+      41: '41px',
+      43: '43px',
       45: '45px',
       47: '47px',
       48: '48px',
@@ -109,6 +123,7 @@ module.exports = {
       53: '53px',
       56: '56px',
       57: '57px',
+      60: '60px',
       64: '64px',
       70: '70px',
       80: '80px',
@@ -116,10 +131,15 @@ module.exports = {
       110: '110px',
       120: '120px',
       160: '160px',
+      211: '211px',
       243: '243px',
+      238: '238px',
       320: '320px',
+      350: '350px',
       362: '362px',
+      450: '450px',
       486: '486px',
+      604: '604px',
       760: '760px',
       1110: '1110px'
     },
@@ -150,6 +170,7 @@ module.exports = {
       3: '3px',
       4: '4px',
       5: '5px',
+      6: '6px',
       8: '8px',
       10: '10px',
       16: '16px',
@@ -163,6 +184,7 @@ module.exports = {
       DEFAULT: '1px',
       0: '0px',
       2: '2px',
+      3: '3px',
       4: '4px',
       8: '8px'
     },
@@ -199,7 +221,8 @@ module.exports = {
         'sans-serif'
       ],
       roboto: 'Roboto, sans-serif',
-      'roboto-mono': 'Roboto Mono, monospace'
+      'roboto-mono': 'Roboto Mono, monospace',
+      inter: 'Inter'
     },
     fontSize: {
       9: '9px',
@@ -211,6 +234,7 @@ module.exports = {
       18: '18px',
       20: '20px',
       21: '21px',
+      22: '22px',
       23: '23px',
       24: '24px',
       28: '28px',
@@ -414,10 +438,12 @@ module.exports = {
       '-1': '-1'
     },
     boxShadow: {
-      button: '0 10px 20px rgba(80, 82, 36, 1)'
+      button: '0 10px 20px rgba(80, 82, 36, 1)',
+      input: '0 0 0 2px #ecb935'
     },
     gap: {
-      20: '20px'
+      20: '20px',
+      24: '24px'
     }
   },
   variants: {

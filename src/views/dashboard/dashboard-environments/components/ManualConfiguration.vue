@@ -1,23 +1,40 @@
 <template>
-  <div class="flex mx-auto bg-yellow-300 items-center flex-col h-screen max-w-1110 mt-50">
+  <div class="flex mx-auto bg-yellow-300 items-center flex-col max-w-1110">
     <div class="flex justify-between w-full mb-26">
-      <h2>Installations</h2>
+      <h2>Environments</h2>
       <ButtonModule prefix="icon-add text-14 mr-16" text="Add" size="xs" />
     </div>
     <div class="w-full bg-foreground-900 border border-foreground-500 rounded-16">
       <SelectModule :options="['hello', 'world']" class="w-243 my-20 ml-32" />
+
+      <table class="w-full" aria-describedby="installations">
+        <tr>
+          <th v-for="header in headers" :id="header" :key="header">{{ header }}</th>
+        </tr>
+        <tr v-for="item in items" :key="item.id" class="cursor-pointer" @click="goToInstallationsTemplate(item.id)">
+          <td>
+            <div class="bg-tulip-tree w-32 h-32 flex justify-center items-center rounded-100">
+              <span class="icon-settings text-23 text-black" />
+            </div>
+          </td>
+          <td>{{ item.name }}</td>
+          <td>{{ item.environments }}</td>
+          <td>{{ item.applications }}</td>
+          <td>{{ item.topologyStreams }}</td>
+        </tr>
+      </table>
       <div
         class="flex justify-end py-20 text-foreground-200
         text-14 font-roboto font-medium border-t border-foreground-500"
       >
         <div class="flex">
           <span>Items per page</span>
-          <SelectOutlineModule :options="['5', '4', '3']" class="w-64" />
+          <SelectModule :options="['5', '4', '3']" is-outline class="w-64" />
         </div>
-        <div class="flex ml-70">
+        <div class="flex ml-70 items-center">
           <span>1-5 of 24</span>
-          <span class="icon-arrow-outline block transform rotate-90 text-10 mr-32 ml-24 cursor-pointer" />
-          <span class="icon-arrow-outline block transform -rotate-90 text-10 mr-26 cursor-pointer" />
+          <span class="icon-arrow-outline block transform rotate-90 text-9 mr-32 ml-24 cursor-pointer" />
+          <span class="icon-arrow-outline block transform -rotate-90 text-9 mr-26 cursor-pointer" />
         </div>
       </div>
     </div>
@@ -28,23 +45,37 @@
 import { defineComponent } from 'vue'
 import ButtonModule from '@/components/ButtonModule.vue'
 import SelectModule from '@/components/SelectModule.vue'
-import SelectOutlineModule from '@/components/SelectOutlineModule.vue'
+import { useRouter } from 'vue-router'
+import { routesNames } from '@/router'
 
 export default defineComponent({
-  name: 'Organization',
-  components: { ButtonModule, SelectModule, SelectOutlineModule },
+  name: 'ManualConfiguration',
+  components: { ButtonModule, SelectModule },
 
   setup () {
+    const router = useRouter()
     const headers = ['', 'Name', 'Environments', 'Applications', 'Topology streams']
     const items = [
       {
+        id: '1d3v553vdg4',
         name: 'Instalation Name 1',
         environments: '4',
         applications: '5',
         topologyStreams: '6'
+      },
+      {
+        id: '1de55mvdg1',
+        name: 'Instalation Name 2',
+        environments: '5',
+        applications: '6',
+        topologyStreams: '4'
       }
     ]
-    return { headers, items }
+
+    function goToInstallationsTemplate (id: string) {
+      router.push({ name: routesNames.dashboardOverview, params: { id } })
+    }
+    return { headers, items, goToInstallationsTemplate }
   }
 })
 </script>

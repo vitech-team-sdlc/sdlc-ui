@@ -11,7 +11,7 @@
         <tr>
           <th v-for="header in headers" :id="header" :key="header">{{ header }}</th>
         </tr>
-        <tr v-for="item in items" :key="item.name">
+        <tr v-for="item in items" :key="item.id" class="cursor-pointer" @click="goToInstallationsTemplate(item.id)">
           <td>
             <div class="bg-tulip-tree w-32 h-32 flex justify-center items-center rounded-100">
               <span class="icon-settings text-23 text-black" />
@@ -45,22 +45,37 @@
 import { defineComponent } from 'vue'
 import ButtonModule from '@/components/ButtonModule.vue'
 import SelectModule from '@/components/SelectModule.vue'
+import { useRouter } from 'vue-router'
+import { routesNames } from '@/router'
 
 export default defineComponent({
   name: 'Organization',
   components: { ButtonModule, SelectModule },
 
   setup () {
+    const router = useRouter()
     const headers = ['', 'Name', 'Environments', 'Applications', 'Topology streams']
     const items = [
       {
+        id: '1d3v553vdg4',
         name: 'Instalation Name 1',
         environments: '4',
         applications: '5',
         topologyStreams: '6'
+      },
+      {
+        id: '1de55mvdg1',
+        name: 'Instalation Name 2',
+        environments: '5',
+        applications: '6',
+        topologyStreams: '4'
       }
     ]
-    return { headers, items }
+
+    function goToInstallationsTemplate (id: string) {
+      router.push({ name: routesNames.dashboardOverview, params: { id } })
+    }
+    return { headers, items, goToInstallationsTemplate }
   }
 })
 </script>

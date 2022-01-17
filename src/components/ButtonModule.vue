@@ -1,6 +1,12 @@
 <template>
   <button
-    :class="[btnClass[size][type], btnClass[size].default]"
+    class="flex justify-center items-center rounded-4 h-48 transition duration-300 ease-in-out text-18"
+    :class="[{
+               'bg-transparent border-2 border-tulip-tree text-tulip-tree': outline,
+               'bg-tulip-tree text-mine-shaft': !outline,
+               'bg-tulip-tree text-mine-shaft opacity-40 cursor-not-allowed': disabled
+             },
+             btnClass[size]]"
   >
     <span v-if="prefix" :class="prefix" /> {{ text }}
   </button>
@@ -20,28 +26,27 @@ export default defineComponent({
       type: String,
       required: false
     },
-    size: String,
-    type: String
+    size: {
+      type: String,
+      default: 'default'
+    },
+    outline: {
+      type: Boolean,
+      default: false
+    },
+    disabled: {
+      type: Boolean,
+      default: false
+    }
   },
 
   setup () {
     const btnClass = computed(() => {
       return {
-        ultra: {
-          default: 'w-full h-48 mx-auto bg-tulip-tree hover:shadow-button transition duration-300 ease-in-out text-18 text-mine-shaft flex justify-center items-center rounded-4',
-          outline: 'bg-deep-grey',
-          disabled: 'cursor-not-allowed border border-warm-grey-50 text-warm-grey-50'
-        },
-        xl: {
-          default: 'w-320 h-48 mx-auto bg-tulip-tree hover:shadow-button transition duration-300 ease-in-out text-18 text-mine-shaft flex justify-center items-center rounded-4',
-          outline: 'bg-deep-grey',
-          disabled: 'cursor-not-allowed border border-warm-grey-50 text-warm-grey-50'
-        },
-        xs: {
-          default: 'w-120 h-48 bg-tulip-tree hover:shadow-button transition duration-300 ease-in-out text-18 text-mine-shaft flex justify-center items-center rounded-4',
-          outline: 'bg-deep-grey',
-          disabled: 'cursor-not-allowed border border-warm-grey-50 text-warm-grey-50'
-        }
+        full: 'w-full',
+        xl: 'w-320 mx-auto',
+        default: 'w-238 mx-auto',
+        xs: 'w-120'
       }
     })
 
