@@ -6,11 +6,20 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, onMounted } from 'vue'
 import Header from '@/components/Header.vue'
+import { authStore } from '@/views/auth/auth.store'
 
 export default defineComponent({
   name: 'DefaultLayout',
-  components: { Header }
+  components: { Header },
+
+  setup () {
+    onMounted(async () => {
+      if (authStore.accessToken) {
+        await authStore.getUser()
+      }
+    })
+  }
 })
 </script>

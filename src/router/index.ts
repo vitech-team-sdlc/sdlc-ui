@@ -8,6 +8,7 @@ import { authRoutes } from '@/views/auth/auth.routes'
 import DefaultLayout from '@/layouts/DefaultLayout.vue'
 import BlankLayout from '@/layouts/BlankLayout.vue'
 import { organizationRoutes } from '@/views/organization/organization.routes'
+import { dashboardRoutes } from '@/views/dashboard/dashboard.routes'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -21,7 +22,8 @@ const routes: Array<RouteRecordRaw> = [
     path: '/',
     component: DefaultLayout,
     children: [
-      ...organizationRoutes
+      ...organizationRoutes,
+      ...dashboardRoutes
     ]
   }
 ]

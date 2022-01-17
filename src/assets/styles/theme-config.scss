@@ -1,4 +1,6 @@
 :root {
+  --color-black: #000;
+  --color-baltic: #332f3a;
   --color-baltic-sea: #322e38;
   --color-tulip-tree: #ecb935;
   --color-mine-shaft: #2b2b2b;
@@ -26,6 +28,7 @@
   --color-foreground-600: rgba(var(--color-foreground), 0.08);
   --color-foreground-700: rgba(var(--color-foreground), 0.05);
   --color-foreground-800: rgba(var(--color-foreground), 0.03);
+  --color-foreground-900: rgba(var(--color-foreground), 0.02);
 
   /* primary color */
   --color-primary: 37, 157, 168;

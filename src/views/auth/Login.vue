@@ -16,24 +16,28 @@
         Morbi sed ipsum eget risus pharetra interdum eget eu odio.
         Mauris sit amet risus ut velit luctus consectetur vitae at metus.
       </p>
-      <button class="w-full h-53 bg-tulip-tree hover:shadow-button transition duration-300 ease-in-out
-      text-18 text-mine-shaft flex justify-center items-center rounded-4 mt-32" @click="goToOrganization"
-      >
-        <span class="icon-github text-32 mr-16" /> Autenticate with GitHub
-      </button>
+      <ButtonModule
+        prefix="icon-github text-32 mr-16"
+        text="Authenticate with GitHub"
+        size="ultra"
+        class="mt-32"
+        @click="goToOrganization"
+      />
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { router, routesNames } from '@/router'
+import ButtonModule from '@/components/ButtonModule.vue'
+
 export default defineComponent({
   name: 'Login',
+  components: { ButtonModule },
 
   setup () {
     function goToOrganization () {
-      router.push({ name: routesNames.organization })
+      window.location.href = 'https://github.com/login/oauth/authorize?client_id=Iv1.94657f4b86f3738d'
     }
     return { goToOrganization }
   }

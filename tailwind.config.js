@@ -11,9 +11,11 @@ module.exports = {
     },
     colors: {
       transparent: 'transparent',
+      baltic: 'var(--color-baltic)',
       'baltic-sea': 'var(--color-baltic-sea)',
       'tulip-tree': 'var(--color-tulip-tree)',
       'mine-shaft': 'var(--color-mine-shaft)',
+      black: 'var(--color-black)',
 
       background: {
         default: 'var(--color-background-default)',
@@ -31,11 +33,12 @@ module.exports = {
         100: 'var(--color-foreground-100)',
         200: 'var(--color-foreground-200)',
         300: 'var(--color-foreground-300)',
-        400: 'var(--color-foreground-400)',
+        400: 'var(--colmine-shaftor-foreground-400)',
         500: 'var(--color-foreground-500)',
         600: 'var(--color-foreground-600)',
         700: 'var(--color-foreground-700)',
-        800: 'var(--color-foreground-800)'
+        800: 'var(--color-foreground-800)',
+        900: 'var(--color-foreground-900)'
       },
       primary: {
         default: 'var(--color-primary-default)',
@@ -86,22 +89,41 @@ module.exports = {
       '1/4': '25%',
       0: '0',
       1: '1px',
+      3: '3px',
+      4: '4px',
       8: '8px',
+      14: '14px',
+      15: '15px',
       16: '16px',
       20: '20px',
+      24: '24px',
+      25: '25px',
+      26: '26px',
+      28: '28px',
       32: '32px',
       45: '45px',
+      47: '47px',
+      48: '48px',
+      50: '50px',
       51: '51px',
       53: '53px',
+      56: '56px',
       57: '57px',
+      64: '64px',
+      70: '70px',
+      80: '80px',
       88: '88px',
       110: '110px',
+      120: '120px',
+      160: '160px',
+      243: '243px',
+      320: '320px',
       362: '362px',
       486: '486px',
+      760: '760px',
       1110: '1110px'
     },
     backgroundColor: (theme) => theme('colors'),
-    backgroundOpacity: (theme) => theme('opacity'),
     backgroundPosition: {
       bottom: 'bottom',
       center: 'center',
@@ -130,6 +152,7 @@ module.exports = {
       5: '5px',
       8: '8px',
       10: '10px',
+      16: '16px',
       20: '20px',
       25: '25px',
       100: '100px',
@@ -180,18 +203,20 @@ module.exports = {
     },
     fontSize: {
       9: '9px',
-      tiny: '10px',
-      small: '12px',
-      regular: '14px',
-      large: '16px',
+      10: '10px',
+      12: '12px',
+      14: '14px',
+      15: '15px',
+      16: '16px',
       18: '18px',
-      'extra-large': '20px',
+      20: '20px',
       21: '21px',
+      23: '23px',
       24: '24px',
       28: '28px',
       32: '32px',
-      36: '36px',
-      48: '48px',
+      38: '38px',
+      42: '42px',
       84: '84px'
     },
     fontWeight: {
@@ -208,7 +233,9 @@ module.exports = {
       auto: 'auto',
       ...theme('spacing'),
       '1/2': '50%',
+      // eslint-disable-next-line sonarjs/no-duplicate-string
       '1/3': '33.333333%',
+      // eslint-disable-next-line sonarjs/no-duplicate-string
       '2/3': '66.666667%',
       '1/4': '25%',
       '2/4': '50%',
@@ -217,10 +244,12 @@ module.exports = {
       '2/5': '40%',
       '3/5': '60%',
       '4/5': '80%',
+      // eslint-disable-next-line sonarjs/no-duplicate-string
       '1/6': '16.666667%',
       '2/6': '33.333333%',
       '3/6': '50%',
       '4/6': '66.666667%',
+      // eslint-disable-next-line sonarjs/no-duplicate-string
       '5/6': '83.333333%',
       full: '100%',
       screen: '100vh'
@@ -260,10 +289,12 @@ module.exports = {
       18: '18px',
       19: '19px',
       21: '21px',
+      24: '24px',
       28: '28px',
       30: '30px',
-      43: '43px',
-      57: '57px'
+      45: '45px',
+      47: '47px',
+      50: '50px'
     },
     listStyleType: {
       none: 'none',
@@ -284,7 +315,9 @@ module.exports = {
       ...theme('spacing'),
       none: 'none',
       full: '100%',
+      // eslint-disable-next-line sonarjs/no-duplicate-string
       min: 'min-content',
+      // eslint-disable-next-line sonarjs/no-duplicate-string
       max: 'max-content',
       ...breakpoints(theme('screens'))
     }),
@@ -382,9 +415,13 @@ module.exports = {
     },
     boxShadow: {
       button: '0 10px 20px rgba(80, 82, 36, 1)'
+    },
+    gap: {
+      20: '20px'
     }
   },
   variants: {
+    // eslint-disable-next-line sonarjs/no-duplicate-string
     accessibility: ['responsive', 'focus-within', 'focus'],
     alignContent: ['responsive'],
     alignItems: ['responsive'],
@@ -404,6 +441,7 @@ module.exports = {
     backgroundAttachment: ['responsive'],
     backgroundBlendMode: ['responsive'],
     backgroundClip: ['responsive'],
+    // eslint-disable-next-line sonarjs/no-duplicate-string
     backgroundColor: ['responsive', 'dark', 'group-hover', 'focus-within', 'hover', 'focus'],
     backgroundImage: ['responsive'],
     backgroundOpacity: ['responsive', 'dark', 'group-hover', 'focus-within', 'hover', 'focus'],
@@ -416,7 +454,7 @@ module.exports = {
     borderOpacity: ['responsive', 'dark', 'group-hover', 'focus-within', 'hover', 'focus'],
     borderRadius: ['responsive'],
     borderStyle: ['responsive'],
-    borderWidth: ['responsive'],
+    borderWidth: ['hover', 'responsive'],
     boxDecorationBreak: ['responsive'],
     boxShadow: ['responsive', 'group-hover', 'focus-within', 'hover', 'focus'],
     boxSizing: ['responsive'],

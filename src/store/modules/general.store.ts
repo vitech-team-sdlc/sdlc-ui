@@ -1,7 +1,7 @@
 import { Action, Module, Mutation, VuexModule } from 'vuex-class-modules'
 import { store } from '@/store/create-store'
 import { IExampleInterface, TNullableField } from '@/types'
-import { exampleGeneralService } from '@/services'
+import { generalService } from '@/services'
 
 @Module
 class GeneralStore extends VuexModule {
@@ -14,7 +14,7 @@ class GeneralStore extends VuexModule {
 
   @Action
   async getTestVar () {
-    const res = await exampleGeneralService.getSomeData()
+    const res = await generalService.getSomeData()
     this.SET_TEST_VAR(res)
   }
 }
