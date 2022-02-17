@@ -5,38 +5,27 @@
       <ButtonModule prefix="icon-add text-14 mr-16" text="Add" size="xs" />
     </div>
     <div class="w-full bg-foreground-900 border border-foreground-500 rounded-16">
-      <SelectModule :options="['hello', 'world']" class="w-243 my-20 ml-32" />
-
-      <table class="w-full" aria-describedby="installations">
-        <tr>
-          <th v-for="header in headers" :id="header" :key="header">{{ header }}</th>
-        </tr>
-        <tr v-for="item in items" :key="item.id" class="cursor-pointer" @click="goToInstallationsTemplate(item.id)">
-          <td>
-            <div class="bg-tulip-tree w-32 h-32 flex justify-center items-center rounded-100">
-              <span class="icon-settings text-23 text-black" />
+      <TableComponent :items="items" :headers="headers" @id="goToInstallationsTemplate($event)">
+        <template #header>
+          <SelectModule :options="['hello', 'world']" class="w-243 my-20 ml-32" />
+        </template>
+        <template #footer>
+          <div
+            class="flex justify-end py-20 text-foreground-200 text-14
+              font-roboto font-medium border-t border-foreground-500"
+          >
+            <div class="flex">
+              <span>Items per page</span>
+              <SelectModule :options="['5', '4', '3']" is-outline class="w-64" />
             </div>
-          </td>
-          <td>{{ item.name }}</td>
-          <td>{{ item.environments }}</td>
-          <td>{{ item.applications }}</td>
-          <td>{{ item.topologyStreams }}</td>
-        </tr>
-      </table>
-      <div
-        class="flex justify-end py-20 text-foreground-200
-        text-14 font-roboto font-medium border-t border-foreground-500"
-      >
-        <div class="flex">
-          <span>Items per page</span>
-          <SelectModule :options="['5', '4', '3']" is-outline class="w-64" />
-        </div>
-        <div class="flex ml-70 items-center">
-          <span>1-5 of 24</span>
-          <span class="icon-arrow-outline block transform rotate-90 text-9 mr-32 ml-24 cursor-pointer" />
-          <span class="icon-arrow-outline block transform -rotate-90 text-9 mr-26 cursor-pointer" />
-        </div>
-      </div>
+            <div class="flex ml-70 items-center">
+              <span>1-5 of 24</span>
+              <span class="icon-arrow-outline block transform rotate-90 text-9 mr-32 ml-24 cursor-pointer" />
+              <span class="icon-arrow-outline block transform -rotate-90 text-9 mr-26 cursor-pointer" />
+            </div>
+          </div>
+        </template>
+      </TableComponent>
     </div>
   </div>
 </template>
@@ -47,25 +36,54 @@ import ButtonModule from '@/components/ButtonModule.vue'
 import SelectModule from '@/components/SelectModule.vue'
 import { useRouter } from 'vue-router'
 import { routesNames } from '@/router'
+import TableComponent from '@/components/TableComponent.vue'
 
 export default defineComponent({
   name: 'Organization',
-  components: { ButtonModule, SelectModule },
+  components: { ButtonModule, SelectModule, TableComponent },
 
   setup () {
     const router = useRouter()
-    const headers = ['', 'Name', 'Environments', 'Applications', 'Topology streams']
+    const headers = [
+      {
+        key: 'icon',
+        value: '',
+        width: '84'
+      },
+      {
+        key: 'name',
+        value: 'Name'
+      },
+      {
+        key: 'environments',
+        value: 'Environments'
+      },
+      {
+        key: 'applications',
+        value: 'Applications',
+        width: '183'
+      },
+      {
+        key: 'topologyStreams',
+        value: 'Topology streams',
+        width: '218'
+      }
+    ]
     const items = [
       {
         id: '1d3v553vdg4',
-        name: 'Instalation Name 1',
+        name: 'Installation Name 1',
+        subline: 'Development',
+        icon: 'settings',
         environments: '4',
         applications: '5',
         topologyStreams: '6'
       },
       {
         id: '1de55mvdg1',
-        name: 'Instalation Name 2',
+        name: 'Installation Name 2',
+        subline: 'BA',
+        icon: 'settings',
         environments: '5',
         applications: '6',
         topologyStreams: '4'
@@ -79,40 +97,3 @@ export default defineComponent({
   }
 })
 </script>
-
-<style lang="scss" scoped>
-tr {
-  th {
-    &:nth-child(n+3) {
-      @apply text-right;
-    }
-    &:nth-child(2) {
-      @apply text-left;
-    }
-    &:nth-child(1) {
-      @apply pl-32;
-    }
-    &:last-child {
-      @apply pr-32;
-    }
-
-    @apply text-foreground-200 text-14 font-roboto-mono h-57 border-t border-foreground-500;
-  }
-  td {
-    &:nth-child(n+3) {
-      @apply text-right text-14;
-    }
-    &:nth-child(2) {
-      @apply text-left text-14;
-    }
-    &:nth-child(1) {
-      @apply pl-32;
-    }
-    &:last-child {
-      @apply pr-32;
-    }
-
-    @apply h-57 border-t border-foreground-500;
-  }
-}
-</style>

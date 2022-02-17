@@ -3,10 +3,9 @@ import { authStore } from '@/views/auth/auth.store'
 
 class OrganizationService {
   getOrganizations () {
-    return httpService.get('/api/organization', {
+    return httpService.get('/user/organization', {
       headers: {
-        'X-SA10-Token': authStore.accessToken,
-        'X-SA10-Provider': 'GitHub'
+        Authorization: `Bearer ${authStore.accessToken}`
       }
     })
   }

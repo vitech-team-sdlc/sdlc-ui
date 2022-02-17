@@ -1,29 +1,32 @@
 <template>
-  <div class="relative text-left outline-0" :class="isOutline ? 'leading-24' : 'leading-47 h-47'" @blur="open = false">
-    <div
-      :class="[ isOutline ? isOutlineStyle : isNotOutline ]"
-      class="bg-transparent pl-16 cursor-pointer flex items-center"
-      @click="open = !open"
-    >
-      {{ selected }}
-      <span
-        class="text-right right-15 absolute text-9 transition ease-in-out delay-100"
-        :class="[{ 'transform -rotate-180 ': open }, isOutline ? 'icon-arrow-outline' : 'icon-arrow']"
-      />
-    </div>
-    <div
-      class="absolute left-0 right-0 z-index-10 rounded-b-8 bg-background-default"
-      :class="[{ 'hidden': !open }, { 'border-r border-l border-b border-tulip-tree': !isOutline }]"
-    >
+  <div class="relative text-left outline-0" :class="isOutline ? 'leading-24' : ''">
+    <label>
+      <div v-if="label" class="font-roboto font-bold mb-8">{{ label }}</div>
       <div
-        v-for="(option, i) of options"
-        :key="i"
-        class="pl-16 cursor-pointer hover:bg-tulip-tree hover:text-black"
-        @click="selectOption(option)"
+        :class="[ isOutline ? isOutlineStyle : isNotOutline ]"
+        class="bg-transparent pl-16 cursor-pointer flex items-center py-11"
+        @click="open = !open"
       >
-        {{ option }}
+        {{ selected }}
+        <span
+          class="text-right right-15 absolute text-9 transition ease-in-out delay-100"
+          :class="[{ 'transform -rotate-180 ': open }, isOutline ? 'icon-arrow-outline' : 'icon-arrow']"
+        />
       </div>
-    </div>
+      <div
+        class="absolute left-0 right-0 z-10 rounded-b-8 bg-background-default pb-4"
+        :class="[{ 'hidden': !open }, { 'border-r border-l border-b border-tulip-tree': !isOutline }]"
+      >
+        <div
+          v-for="(option, i) of options"
+          :key="i"
+          class="pl-16 cursor-pointer hover:bg-tulip-tree hover:text-black py-8"
+          @click="selectOption(option)"
+        >
+          {{ option }}
+        </div>
+      </div>
+    </label>
   </div>
 </template>
 
@@ -48,6 +51,7 @@ export default defineComponent({
       default: false
     },
     size: String,
+    label: String,
     type: String
   },
   emits: ['input'],

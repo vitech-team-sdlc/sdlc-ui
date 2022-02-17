@@ -1,56 +1,72 @@
 <template>
-  <div>Applications</div>
+  <div class="flex w-full items-center flex-col">
+    <div class="flex justify-between w-full mb-26">
+      <h2>Applications</h2>
+      <div class="flex">
+        <ButtonModule outline prefix="icon-add text-14 mr-16" class="mr-24" text="Import" size="xs" />
+        <ButtonModule prefix="icon-add text-14 mr-16" text="Create" size="xs" @click="showModal = true" />
+      </div>
+    </div>
+    <div class="w-full bg-foreground-900 border border-foreground-500 rounded-16">
+      <TableComponent :items="items" :headers="headers" align-left @id="goToInstallationsTemplate($event)" />
+    </div>
+  </div>
+  <AddApplicationModal v-model="showModal" />
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
+import ButtonModule from '@/components/ButtonModule.vue'
+import TableComponent from '@/components/TableComponent.vue'
+import AddApplicationModal from '@/views/dashboard/dashboard-applications/components/AddApplicationModal.vue'
 
 export default defineComponent({
   name: 'DashboardApplications',
-  components: { },
+  components: { ButtonModule, TableComponent, AddApplicationModal },
 
   setup () {
-    const listRoutes: Array<{ name: string; link: string }> = [
+    const showModal = ref(false)
+
+    const headers = [
       {
-        name: 'Overview',
-        link: 'dashboard-overview'
+        key: 'icon',
+        value: '',
+        width: '84'
       },
       {
-        name: 'Environments',
-        link: 'dashboard'
+        key: 'name',
+        value: 'Name'
       },
       {
-        name: 'Applications',
-        link: 'dashboard'
+        key: 'template',
+        value: 'Template'
       },
       {
-        name: 'Topology Streams',
-        link: 'dashboard'
+        key: 'pipeline',
+        value: 'Pipeline'
       }
     ]
-    return { listRoutes }
+    const items = [
+      {
+        id: '1d3v553dfssvdg4',
+        name: 'Application Name 1',
+        template: 'Gridle  + Java8 + Sprint Boot',
+        pipeline: 'Gridle  + Sonar',
+        icon: 'workspaces'
+      },
+      {
+        id: '1de55mrwervdg1',
+        name: 'Application Name 2',
+        template: 'Maven  + Java8 + Sprint Boot',
+        pipeline: 'Gridle  + Super Linter',
+        icon: 'workspaces'
+      }
+    ]
+
+    function goToInstallationsTemplate (id: string) {
+      console.log(id, 1111)
+    }
+    return { headers, items, goToInstallationsTemplate, showModal }
   }
 })
 </script>
-
-<style scoped>
-ul li a::before {
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 3px;
-  background: var(--color-tulip-tree);
-  top: 50px;
-  visibility: hidden;
-  border-top-right-radius: 13px;
-  border-top-left-radius: 13px;
-}
-
-ul li a:hover::before, ul li a.router-link-exact-active::before {
-  visibility: visible;
-}
-
-a.router-link-exact-active {
-  color: var(--color-tulip-tree);
-}
-</style>

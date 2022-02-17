@@ -1,15 +1,17 @@
 <template>
-  <p class="pb-8 font-medium">{{ title }}</p>
-  <ul class="inline-flex text-14 rounded-8 h-38 px-5 py-2 bg-baltic-black">
-    <li v-for="(tab) in tabs"
-        :key="tab"
-        :class="modelValue === tab && 'selected rounded-8 bg-tulip-tree text-baltic-black'"
-        class="flex justify-center items-center cursor-pointer px-12"
-        @click="$emit('update:modelValue', tab)"
-    >
-      {{ tab }}
-    </li>
-  </ul>
+  <div>
+    <p class="pb-8 font-medium">{{ title }}</p>
+    <ul class="inline-flex text-14 rounded-8 h-38 px-5 py-2 bg-baltic-black">
+      <li v-for="(tab) in tabs"
+          :key="tab"
+          :class="modelValue === tab && 'selected rounded-8 bg-tulip-tree text-baltic-black'"
+          class="flex justify-center items-center cursor-pointer px-12"
+          @click="$emit('update:modelValue', tab)"
+      >
+        {{ tab }}
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script lang="ts">

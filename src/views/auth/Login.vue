@@ -37,7 +37,7 @@ export default defineComponent({
 
   setup () {
     function goToOrganization () {
-      window.location.href = 'https://github.com/login/oauth/authorize?client_id=Iv1.94657f4b86f3738d'
+      window.location.href = 'https://github.com/login/oauth/authorize?client_id=Iv1.94657f4b86f3738d&redirect_uri=http://localhost:3000/organization'
     }
     return { goToOrganization }
   }

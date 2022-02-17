@@ -2,27 +2,27 @@
   <div class="max-w-604 flex flex-col">
     <div class="grid grid-cols-2 gap-24 w-full">
       <CardComponent
-        v-for="item in data"
-        :key="item.id"
+        v-for="template in getListOfTemplates"
+        :key="template.name"
         v-model="selectedCardValue"
         class="justify-between py-24 px-22"
-        :value="item.id"
+        :value="template.name"
       >
         <div>
-          <p class="text-tulip-tree text-20 font-medium mb-24">{{ item.label }}</p>
-          <div v-for="plan in item.plan" :key="plan" class="my-8 text-14">
-            <span class="icon-check-mark text-success-default" /><span class="pl-11">{{ plan }}</span>
+          <p class="text-tulip-tree text-20 font-medium mb-24">{{ template.name }}</p>
+          <div v-for="plan in template.environments" :key="plan.cluster.name" class="my-8 text-14">
+            <span class="icon-check-mark text-success-default" /><span class="pl-11">{{ plan.cluster.name }}</span>
           </div>
         </div>
         <div class="mt-20">
           <div class="flex mb-14">
             <div class="flex">
-              <span class="text-24 font-bold">{{ item.priceDay }}</span>
+              <span class="text-24 font-bold">$15</span>
               <span class="text-12 text-foreground-200 align-super pt-3">/day</span>
             </div>
             <span class="text-24 font-bold px-3">/</span>
             <div class="flex">
-              <span class="text-24 font-bold">{{ item.priceMonth }}</span>
+              <span class="text-24 font-bold">$450</span>
               <span class="text-12 text-foreground-200 align-super pt-3">/month</span>
             </div>
           </div>
@@ -30,8 +30,8 @@
           <div style="background-color: #38363C" class="flex items-center px-6 h-36 rounded-6">
             <span
               class="text-tulip-tree text-14"
-              @click="navigateToLink(item.link)"
-            >{{ item.link }}</span>
+              @click="navigateToLink('www.aws.amazon.com/ec2/pricing/')"
+            >www.aws.amazon.com/ec2/pricing/</span>
           </div>
         </div>
       </CardComponent>
@@ -42,7 +42,6 @@
         v-model="awsKey"
         label="AWS Key"
         placeholder="Put your AWS Key here"
-        @disable="$emit('disable', $event)"
       />
       <InputModule
         v-model="awsSecretKey"
@@ -54,37 +53,21 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref, watchEffect } from 'vue'
+import { computed, defineComponent, onMounted, Ref, ref, watchEffect } from 'vue'
 import CardComponent from '@/components/CardComponent.vue'
 import CopyComponent from '@/components/CopyComponent.vue'
 import InputModule from '@/components/InputModule.vue'
+import { dashboardEnvironmentsService } from '@/views/dashboard/dashboard-environments/dashboard-environments.service'
+import { ITemplate } from '@/views/dashboard/dashboard-environments/dashboard-environments.types'
 
 export default defineComponent({
   name: 'TemplateBasedConfiguration',
   components: { InputModule, CopyComponent, CardComponent },
-  emits: ['disable'],
+  emits: ['disabled'],
 
   setup (_, { emit }) {
-    const data = [
-      {
-        label: '3 environments',
-        plan: ['Development', 'Pre- PRD', 'PROD'],
-        priceDay: '$15',
-        priceMonth: '$450',
-        link: 'www.aws.amazon.com/ec2/pricing/',
-        id: '0'
-      },
-      {
-        label: '4 environments',
-        plan: ['Development', 'Pre- PRD', 'QA', 'PROD'],
-        priceDay: '$18',
-        priceMonth: '$550',
-        link: 'www.aws.amazon.com/ec2/pricing/',
-        id: '1'
-      }
-    ]
-
-    const selectedCardValue = ref('0')
+    const getListOfTemplates: Ref<ITemplate[]> = ref([])
+    const selectedCardValue = ref('')
     const awsKey = ref('')
     const awsSecretKey = ref('')
 
@@ -92,13 +75,26 @@ export default defineComponent({
       return awsKey.value.length === 0 || awsSecretKey.value.length === 0
     })
 
-    watchEffect(() => { emit('disable', isDisabledFields.value) })
+    watchEffect(() => { emit('disabled', isDisabledFields.value) })
 
     function navigateToLink (link: string) {
       window.open(`https://${link}`)
     }
 
-    return { selectedCardValue, data, awsKey, awsSecretKey, isDisabledFields, navigateToLink }
+    onMounted(async () => {
+      const getListOfTemplatesResponse = await dashboardEnvironmentsService.getListOfTemplates()
+      selectedCardValue.value = getListOfTemplatesResponse[0].name
+      getListOfTemplates.value = getListOfTemplatesResponse
+    })
+
+    return {
+      selectedCardValue,
+      awsKey,
+      awsSecretKey,
+      isDisabledFields,
+      navigateToLink,
+      getListOfTemplates
+    }
   }
 })
 </script>

@@ -16,9 +16,9 @@
       </nav>
     </div>
     <div class="flex items-center cursor-pointer">
-      <span v-if="!user?.AvatarUrl" class="icon-github text-28" />
-      <img v-else :src="user?.AvatarUrl" alt="avatar" class="w-28 rounded-full">
-      <span class="text-14 mx-8 font-bold">{{ user?.Name }}</span>
+      <span v-if="!user?.avatarUrl" class="icon-github text-28" />
+      <img v-else :src="user?.avatarUrl" alt="avatar" width="28" height="28" class="rounded-full">
+      <span class="text-14 mx-8 font-bold">{{ user?.id }}</span>
       <span class="icon-arrow text-9 text-foreground-default" />
     </div>
   </header>
