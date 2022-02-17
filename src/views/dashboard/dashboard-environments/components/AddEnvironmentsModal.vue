@@ -9,7 +9,6 @@
             class="w-365"
             label="Environment name"
             placeholder="Put your environment name here"
-            @disable="$emit('disable', $event)"
           />
         </div>
         <CopyComponent label="AWS Credentials" class="mt-47" />
@@ -18,7 +17,6 @@
             v-model="awsKey"
             label="AWS Key"
             placeholder="Put your AWS Key here"
-            @disable="$emit('disable', $event)"
           />
           <InputModule
             v-model="awsSecretKey"
