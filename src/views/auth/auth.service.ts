@@ -9,8 +9,7 @@ class AuthService {
   getAccessToken (code: string): Promise<ITokenAccess> {
     return httpService.post('/oauth/access_token', undefined, {
       params: {
-        code: JSON.parse(code),
-        provider: 'GitHub'
+        code: JSON.parse(code)
       }
     })
   }
@@ -25,11 +24,9 @@ class AuthService {
   }
 
   getUser (): Promise<any> {
-    return httpService.get('/api/user', {
+    return httpService.get('/user', {
       headers: {
-        'X-SA10-Token': authStore.accessToken,
-        'X-SA10-Provider': 'GitHub',
-        'X-SA10-Org': 'vitech-team-sdlc'
+        Authorization: `Bearer ${authStore.accessToken}`
       }
     })
   }

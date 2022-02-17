@@ -6,12 +6,12 @@
       <div class="grid grid-cols-3 gap-20 mt-80">
         <CardComponent
           v-for="item in organizations"
-          :key="item.Login"
+          :key="item.id"
           v-model="activeOrganization"
           class="justify-center items-center p-16 h-160"
-          :value="item.Login"
+          :value="item.id"
         >
-          <span class="text-20 mb-4">{{ item.Login }}</span>
+          <span class="text-20 mb-4">{{ item.id }}</span>
         </CardComponent>
       </div>
       <ButtonModule text="Continue" size="xl" class="mt-64" @click="goToDashboard" />
@@ -40,7 +40,7 @@ export default defineComponent({
     const activeOrganization = ref('')
 
     const organizations = computed(() => organizationStore.organizations)
-    watchEffect(() => { activeOrganization.value = organizations.value?.[0]?.Login })
+    watchEffect(() => { activeOrganization.value = organizations.value?.[0]?.id })
 
     onMounted(async () => {
       await getAccessToken()

@@ -46,6 +46,7 @@ export default defineComponent({
         full: 'w-full',
         xl: 'w-320 mx-auto',
         default: 'w-238 mx-auto',
+        s: 'w-175',
         xs: 'w-120'
       }
     })

@@ -17,15 +17,15 @@
     <ToggleModule v-model="selectedTab" :tabs="configurationTab" title="Configuration" />
 
     <div class="bg-foreground-900 border border-foreground-500 rounded-16 p-32 mt-32">
-      <TemplateBasedConfiguration v-if="selectedTab === 'Template based'" @disable="isDisable = $event" />
-      <ManualConfiguration v-else />
+      <TemplateBasedConfiguration v-if="isSelectedTemplateBased" @disabled="isDisableTemplateBased = $event" />
+      <ManualConfiguration v-else @disabled="isDisableManual = $event" />
     </div>
-    <ButtonModule text="Create" :disabled="isDisable" class="mt-50" />
+    <ButtonModule text="Create" :disabled="isDisabled" class="mt-50" @click="createEnvironment" />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { computed, defineComponent, ref } from 'vue'
 
 import RadioBoxModule from '@/components/RadioBoxModule.vue'
 import ToggleModule from '@/components/ToggleModule.vue'
@@ -39,12 +39,32 @@ export default defineComponent({
   components: { TemplateBasedConfiguration, ManualConfiguration, RadioBoxModule, ToggleModule, ButtonModule },
 
   setup () {
-    const selectedRadioValue = ref('single_cluster')
     const configurationTab = ['Template based', 'Manual']
-    const selectedTab = ref(configurationTab[0])
-    const isDisable = ref(true)
 
-    return { selectedRadioValue, configurationTab, selectedTab, isDisable }
+    const selectedRadioValue = ref('single_cluster')
+    const selectedTab = ref(configurationTab[0])
+    const isDisableTemplateBased = ref(true)
+    const isDisableManual = ref(true)
+
+    const isSelectedTemplateBased = computed(() => selectedTab.value === configurationTab[0])
+    const isDisabled = computed(() =>
+      (isSelectedTemplateBased.value && isDisableTemplateBased.value) ||
+      (!isSelectedTemplateBased.value && isDisableManual.value))
+
+    function createEnvironment () {
+      if (isDisabled.value) return true
+    }
+
+    return {
+      selectedRadioValue,
+      configurationTab,
+      selectedTab,
+      isDisableTemplateBased,
+      isDisableManual,
+      isSelectedTemplateBased,
+      isDisabled,
+      createEnvironment
+    }
   }
 })
 </script>

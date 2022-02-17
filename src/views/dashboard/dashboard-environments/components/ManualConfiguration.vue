@@ -2,117 +2,88 @@
   <div class="flex mx-auto bg-yellow-300 items-center flex-col max-w-1110">
     <div class="flex justify-between w-full mb-26">
       <h2>Environments</h2>
-      <ButtonModule prefix="icon-add text-14 mr-16" text="Add" size="xs" />
+      <ButtonModule prefix="icon-add text-14 mr-16" text="Add" size="xs" @click="showModal = true" />
     </div>
     <div class="w-full bg-foreground-900 border border-foreground-500 rounded-16">
-      <SelectModule :options="['hello', 'world']" class="w-243 my-20 ml-32" />
-
-      <table class="w-full" aria-describedby="installations">
-        <tr>
-          <th v-for="header in headers" :id="header" :key="header">{{ header }}</th>
-        </tr>
-        <tr v-for="item in items" :key="item.id" class="cursor-pointer" @click="goToInstallationsTemplate(item.id)">
-          <td>
-            <div class="bg-tulip-tree w-32 h-32 flex justify-center items-center rounded-100">
-              <span class="icon-settings text-23 text-black" />
-            </div>
-          </td>
-          <td>{{ item.name }}</td>
-          <td>{{ item.environments }}</td>
-          <td>{{ item.applications }}</td>
-          <td>{{ item.topologyStreams }}</td>
-        </tr>
-      </table>
-      <div
-        class="flex justify-end py-20 text-foreground-200
-        text-14 font-roboto font-medium border-t border-foreground-500"
-      >
-        <div class="flex">
-          <span>Items per page</span>
-          <SelectModule :options="['5', '4', '3']" is-outline class="w-64" />
-        </div>
-        <div class="flex ml-70 items-center">
-          <span>1-5 of 24</span>
-          <span class="icon-arrow-outline block transform rotate-90 text-9 mr-32 ml-24 cursor-pointer" />
-          <span class="icon-arrow-outline block transform -rotate-90 text-9 mr-26 cursor-pointer" />
-        </div>
-      </div>
+      <TableComponent :items="items" :headers="headers">
+        <template #footer>
+          <div
+            class="flex justify-end py-20 text-14
+              font-roboto font-medium border-t border-foreground-500"
+          >
+            <span>Total: $540/Day</span>
+            <span class="ml-70 mr-32">Total: $540/Month</span>
+          </div>
+        </template>
+      </TableComponent>
     </div>
   </div>
+  <AddEnvironmentsModal v-model="showModal" />
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, ref, watchEffect } from 'vue'
+
 import ButtonModule from '@/components/ButtonModule.vue'
-import SelectModule from '@/components/SelectModule.vue'
-import { useRouter } from 'vue-router'
-import { routesNames } from '@/router'
+import TableComponent from '@/components/TableComponent.vue'
+import AddEnvironmentsModal from '@/views/dashboard/dashboard-environments/components/AddEnvironmentsModal.vue'
 
 export default defineComponent({
   name: 'ManualConfiguration',
-  components: { ButtonModule, SelectModule },
-
-  setup () {
-    const router = useRouter()
-    const headers = ['', 'Name', 'Environments', 'Applications', 'Topology streams']
-    const items = [
+  components: { ButtonModule, TableComponent, AddEnvironmentsModal },
+  emits: ['disabled'],
+  setup (_, { emit }) {
+    const showModal = ref(false)
+    const headers = [
       {
-        id: '1d3v553vdg4',
-        name: 'Instalation Name 1',
-        environments: '4',
-        applications: '5',
-        topologyStreams: '6'
+        key: 'icon',
+        value: '',
+        width: '84'
       },
       {
-        id: '1de55mvdg1',
-        name: 'Instalation Name 2',
-        environments: '5',
-        applications: '6',
-        topologyStreams: '4'
+        key: 'name',
+        value: 'Name'
+      },
+      {
+        key: 'nodes',
+        value: 'Nodes'
+      },
+      {
+        key: 'pricePerDay',
+        value: 'Price per day',
+        width: '183'
+      },
+      {
+        key: 'pricePerMonth',
+        value: 'Price per month',
+        width: '218'
       }
     ]
 
-    function goToInstallationsTemplate (id: string) {
-      router.push({ name: routesNames.dashboardOverview, params: { id } })
-    }
-    return { headers, items, goToInstallationsTemplate }
+    const items = [
+      {
+        id: '1d3v553',
+        name: 'Environment Name 1',
+        subline: 'Development',
+        icon: 'workspaces',
+        nodes: '4',
+        pricePerDay: '$5',
+        pricePerMonth: '$6'
+      },
+      {
+        id: '1de55mv',
+        name: 'Environment Name 2',
+        subline: 'BA',
+        icon: 'workspaces',
+        nodes: '5',
+        pricePerDay: '$6',
+        pricePerMonth: '$4'
+      }
+    ]
+
+    watchEffect(() => { emit('disabled', !items.length) })
+
+    return { headers, items, showModal }
   }
 })
 </script>
-
-<style lang="scss" scoped>
-tr {
-  th {
-    &:nth-child(n+3) {
-      @apply text-right;
-    }
-    &:nth-child(2) {
-      @apply text-left;
-    }
-    &:nth-child(1) {
-      @apply pl-32;
-    }
-    &:last-child {
-      @apply pr-32;
-    }
-
-    @apply text-foreground-200 text-14 font-roboto-mono h-57 border-t border-foreground-500;
-  }
-  td {
-    &:nth-child(n+3) {
-      @apply text-right text-14;
-    }
-    &:nth-child(2) {
-      @apply text-left text-14;
-    }
-    &:nth-child(1) {
-      @apply pl-32;
-    }
-    &:last-child {
-      @apply pr-32;
-    }
-
-    @apply h-57 border-t border-foreground-500;
-  }
-}
-</style>

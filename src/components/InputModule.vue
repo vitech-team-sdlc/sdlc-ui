@@ -2,7 +2,7 @@
   <label class="flex flex-col cursor-pointer text-16">
     <span class="font-roboto font-bold mb-8">{{ label }}</span>
     <input
-      class="bg-foreground-900 border border-foreground-500
+      class="border border-foreground-500 h-48
         rounded-8 bg-transparent p-16 outline-none transition duration-300 ease-in-out"
       type="text"
       :name="label"

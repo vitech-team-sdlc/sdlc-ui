@@ -8,3 +8,7 @@ body,
 #app {
   @apply h-full bg-background-default text-foreground-default font-roboto;
 }
+
+.prevent-body-scroll {
+  @apply overflow-hidden;
+}
