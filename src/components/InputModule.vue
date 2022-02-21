@@ -1,37 +1,44 @@
 <template>
-  <label class="flex flex-col cursor-pointer text-16">
+  <label class="flex flex-col cursor-pointer text-16 h-108">
     <span class="font-roboto font-bold mb-8">{{ label }}</span>
     <input
-      class="border border-foreground-500 h-48
-        rounded-8 bg-transparent p-16 outline-none transition duration-300 ease-in-out"
-      type="text"
-      :name="label"
+      class="border border-foreground-500 h-48 rounded-8 bg-transparent p-16 outline-none
+       transition duration-300 ease-in-out"
+      :class="{'has-error': validation[name]?.$error}"
+      :type="type"
+      :name="name"
       :value="modelValue"
       :placeholder="placeholder"
-      @input="$emit('update:modelValue', $event.target.value); $emit('disable', isDisable($event.target.value))"
+      @blur="validation[name]?.$touch"
+      @input="onChange"
     >
+    <span v-show="validation[name]?.$error" class="text-danger-default text-14 mt-1">
+      {{ validation[name]?.$errors[0]?.$message }}
+    </span>
   </label>
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue'
+import { defineComponent } from 'vue'
 
 export default defineComponent({
   name: 'InputModule',
   props: {
     modelValue: { type: String, default: '' },
     label: { type: String, default: '', required: true },
-    value: { type: String, default: '' },
-    placeholder: { type: String, default: '' }
+    type: { type: String, default: 'text' },
+    name: { type: String, default: '' },
+    placeholder: { type: String, default: '' },
+    validation: { type: Object, required: false }
   },
   emits: ['update:modelValue', 'disable'],
 
-  setup () {
-    const isDisable = computed(() => {
-      return (value: string) => value.length === 0
-    })
+  setup (props, { emit }) {
+    function onChange (event: Event) {
+      emit('update:modelValue', (event.target as HTMLInputElement).value)
+    }
 
-    return { isDisable }
+    return { onChange }
   }
 })
 </script>
@@ -39,5 +46,8 @@ export default defineComponent({
 <style>
 input:focus {
   @apply shadow-input;
+}
+.has-error {
+  @apply shadow-error;
 }
 </style>

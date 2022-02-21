@@ -62,6 +62,7 @@ export default defineComponent({
     }
 
     function goToDashboard () {
+      localStorage.setItem('organization', activeOrganization.value)
       router.push({ name: routesNames.dashboard })
     }
 

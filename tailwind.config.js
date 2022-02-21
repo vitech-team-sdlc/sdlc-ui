@@ -131,6 +131,7 @@ module.exports = {
       70: '70px',
       80: '80px',
       88: '88px',
+      108: '108px',
       110: '110px',
       120: '120px',
       126: '126px',
@@ -456,7 +457,8 @@ module.exports = {
     },
     boxShadow: {
       button: '0 10px 20px rgba(80, 82, 36, 1)',
-      input: '0 0 0 2px #ecb935'
+      input: '0 0 0 2px #ecb935',
+      error: '0 0 0 2px var(--color-danger-default)'
     },
     gap: {
       16: '16px',

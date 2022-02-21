@@ -38,16 +38,20 @@
       <div class="w-full flex flex-col mt-28 pb-32">
         <div class="flex gap-24 w-full">
           <InputModule
-            v-model="applicationName"
+            v-model="formData.applicationName"
+            name="applicationName"
             class="flex-1"
             label="Application name"
             placeholder="Put your application name here"
+            :validation="v$"
           />
           <InputModule
-            v-model="slackChannel"
+            v-model="formData.slackChannel"
+            name="slackChannel"
             class="flex-1"
             label="Slack channel"
             placeholder="Put your Salo slack token here"
+            :validation="v$"
           />
         </div>
       </div>
@@ -63,6 +67,9 @@ import InputModule from '@/components/InputModule'
 import CardComponent from '@/components/CardComponent'
 
 import { preventBodyScroll } from '@/core/helpers'
+import { reactive } from '@vue/reactivity'
+import { required } from '@vuelidate/validators'
+import useVuelidate from '@vuelidate/core'
 
 export default defineComponent({
   name: 'AddApplicationModal',
@@ -80,8 +87,16 @@ export default defineComponent({
   setup (props) {
     const selectedCardTemplateValue = ref('0')
     const selectedCardPipelineValue = ref('0')
-    const applicationName = ref('')
-    const slackChannel = ref('')
+
+    const formData = reactive({
+      applicationName: '',
+      slackChannel: ''
+    })
+    const rules = {
+      applicationName: { required },
+      slackChannel: { required }
+    }
+    const v$ = useVuelidate(rules, formData)
 
     const appTemplate = [
       {
@@ -118,8 +133,8 @@ export default defineComponent({
     return {
       selectedCardTemplateValue,
       selectedCardPipelineValue,
-      applicationName,
-      slackChannel,
+      v$,
+      formData,
       appTemplate,
       appPipeline
     }

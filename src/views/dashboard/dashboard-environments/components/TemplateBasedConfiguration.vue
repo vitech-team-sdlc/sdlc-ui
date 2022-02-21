@@ -39,43 +39,79 @@
     <CopyComponent class="mt-64" />
     <div class="grid grid-cols-2 gap-24 w-full mt-24">
       <InputModule
-        v-model="awsKey"
-        label="AWS Key"
+        v-model="formData.awsKey"
+        name="awsKey"
+        label="AWS Key *"
         placeholder="Put your AWS Key here"
+        :validation="v$"
       />
       <InputModule
-        v-model="awsSecretKey"
-        label="AWS Secret Key"
+        v-model="formData.awsSecretKey"
+        name="awsSecretKey"
+        label="AWS Secret Key *"
         placeholder="Put your AWS Secret Key here"
+        :validation="v$"
       />
     </div>
+    <InputModule
+      v-model="formData.email"
+      name="email"
+      type="email"
+      class="w-full"
+      label="Email *"
+      placeholder="Put your Email here"
+      :validation="v$"
+    />
   </div>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, Ref, ref, watchEffect } from 'vue'
+import { computed, defineComponent, onMounted, Ref, ref, watch, watchEffect } from 'vue'
 import CardComponent from '@/components/CardComponent.vue'
 import CopyComponent from '@/components/CopyComponent.vue'
 import InputModule from '@/components/InputModule.vue'
 import { dashboardEnvironmentsService } from '@/views/dashboard/dashboard-environments/dashboard-environments.service'
 import { ITemplate } from '@/views/dashboard/dashboard-environments/dashboard-environments.types'
+import { reactive } from '@vue/reactivity'
+
+import useVuelidate from '@vuelidate/core'
+import { required, email } from '@vuelidate/validators'
 
 export default defineComponent({
   name: 'TemplateBasedConfiguration',
   components: { InputModule, CopyComponent, CardComponent },
-  emits: ['disabled'],
+  emits: ['disabled', 'templatePayload'],
 
   setup (_, { emit }) {
     const getListOfTemplates: Ref<ITemplate[]> = ref([])
     const selectedCardValue = ref('')
-    const awsKey = ref('')
-    const awsSecretKey = ref('')
+    const formData = reactive({
+      awsKey: '',
+      awsSecretKey: '',
+      email: ''
+    })
+
+    const rules = {
+      awsKey: { required },
+      awsSecretKey: { required },
+      email: { required, email }
+    }
+    const v$ = useVuelidate(rules, formData)
 
     const isDisabledFields = computed(() => {
-      return awsKey.value.length === 0 || awsSecretKey.value.length === 0
+      return (!v$.value.awsKey.$dirty || v$.value.awsKey.$error) ||
+        (!v$.value.awsSecretKey.$dirty || v$.value.awsSecretKey.$error) ||
+        (!v$.value.email.$dirty || v$.value.email.$error)
     })
 
     watchEffect(() => { emit('disabled', isDisabledFields.value) })
+
+    watch([selectedCardValue, formData], (value) => {
+      if (value) {
+        const template = getListOfTemplates.value.find(item => item.name === selectedCardValue.value)
+        emit('templatePayload', { template, formData })
+      }
+    })
 
     function navigateToLink (link: string) {
       window.open(`https://${link}`)
@@ -89,11 +125,11 @@ export default defineComponent({
 
     return {
       selectedCardValue,
-      awsKey,
-      awsSecretKey,
       isDisabledFields,
       navigateToLink,
-      getListOfTemplates
+      getListOfTemplates,
+      v$,
+      formData
     }
   }
 })
