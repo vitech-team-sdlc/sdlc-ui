@@ -1,53 +1,86 @@
-export interface ITemplate {
+interface ICluster {
   name: string,
-  environments: [
-  {
-    cluster: {
+  nodeGroups: [
+    {
       name: string,
-      nodeGroups: [
+      maxSize: number,
+      minSize: number,
+      spotSize: number,
+      volumeSize: number,
+      vmTypes: string[],
+      labels: [
         {
-          name: string,
-          maxSize: number,
-          minSize: number,
-          spotSize: number,
-          volumeSize: number,
-          vmTypes: string[],
-          labels: [
-            {
-              key: string,
-              value: string
-            }
-          ],
-          taints: [
-            {
-              key: string,
-              value: string,
-              effect: string
-            }
-          ],
-          tags: [
-            {
-              key: string,
-              value: string,
-              propagateAtLaunch: boolean
-            }
-          ]
-        },
+          key: string,
+          value: string
+        }
+      ],
+      taints: [
         {
-          name: string,
-          maxSize: number,
-          minSize: number,
-          spotSize: number,
-          volumeSize: number,
-          vmTypes: string[]
+          key: string,
+          value: string,
+          effect: string
+        }
+      ],
+      tags: [
+        {
+          key: string,
+          value: string,
+          propagateAtLaunch: boolean
         }
       ]
     },
-    config: {
-      key: string,
-      remoteCluster: false,
-      promotionStrategy: string
+    {
+      name: string,
+      maxSize: number,
+      minSize: number,
+      spotSize: number,
+      volumeSize: number,
+      vmTypes: string[]
     }
+  ]
+}
+
+interface IClusterCreateTemplate extends ICluster {
+  jxBotUsername: string,
+  cloudProviderClientId: string,
+  cloudProviderSecret: string,
+  domainOwner: boolean,
+  region: string,
+}
+
+interface IEnvironments {
+  cluster: ICluster
+  config: {
+    key: string,
+    remoteCluster: false,
+    promotionStrategy: string
   }
-]
+}
+
+export interface IEnvironmentsCreateTemplate extends IEnvironments {
+  cluster: IClusterCreateTemplate
+}
+
+export interface ITemplate {
+  name: string,
+  environments: IEnvironments[]
+}
+
+export interface ITemplateCreate {
+  name: string,
+  cloudProvider: string,
+  organization: string,
+  ingressConfig: {
+    domain: string,
+    tls: {
+      email: string
+    }
+  },
+  environments: IEnvironmentsCreateTemplate[]
+}
+
+export interface IFormDataTemplateBased {
+  awsKey: string,
+  awsSecretKey: string,
+  email: string
 }
